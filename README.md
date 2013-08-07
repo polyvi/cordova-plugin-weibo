@@ -2,7 +2,7 @@
 
 1. To install this plugin, try
 
-   ```cordova plugin add git@github.com:polyvi/cordova-plugin-weibo.git```
+   ```cordova plugin add https://github.com/polyvi/cordova-plugin-weibo.git```
 
    and further follow the [Command-line Interface Guide](http://cordova.apache.org/docs/en/edge/guide_cli_index.md.html#The%20Command-line%20Interface).
 
