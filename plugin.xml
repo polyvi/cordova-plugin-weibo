@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0"
+    id="com.polyvi.plugins.weibo"
+    version="1.0.0">
+
+    <name>weibo</name>
+
+    <description>
+      Weibo plugin for Apache Cordova
+    </description>
+
+    <js-module src="www/Weibo.js" name="weibo">
+        <clobbers target="navigator.weibo"/>
+    </js-module>
+
+    <engines>
+      <engine name="cordova" version=">=2.9.0" />
+    </engines>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Weibo">
+                <param name="android-package" value="com.polyvi.plugins.weibo"/>
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/Weibo.java" target-dir="src/com/polyvi/plugins/weibo" />
+        <source-file src="src/android/WebViewHandler.java" target-dir="src/com/polyvi/plugins/weibo" />
+        <source-file src="src/android/WeiboContent.java" target-dir="src/com/polyvi/plugins/weibo" />
+        <source-file src="src/android/WebViewLayout.java" target-dir="src/com/polyvi/plugins/weibo" />
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Weibo">
+                <param name="ios-package" value="CDVWeibo" />
+            </feature>
+        </config-file>
+
+        <header-file src="src/ios/CDVWeibo.h" />
+        <source-file src="src/ios/CDVWeibo.m" />
+    </platform>
+
+
+    <author>PolyVi Inc.</author>
+    <keywords>weibo</keywords>
+    <license>Apache 2.0 License</license>
+
+</plugin>
