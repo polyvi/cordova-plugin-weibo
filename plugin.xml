@@ -22,7 +22,7 @@
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Weibo">
-                <param name="android-package" value="com.polyvi.plugins.weibo"/>
+                <param name="android-package" value="com.polyvi.plugins.weibo.Weibo"/>
             </feature>
         </config-file>
         <config-file target="AndroidManifest.xml" parent="/*">

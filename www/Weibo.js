@@ -77,4 +77,4 @@ Weibo.prototype.login = function(clientId, redirectUrl, successCallback, errorCa
     exec(successCallback, errorCallback, "Weibo", "login", [clientId, redirectUrl]);
 };
 
-module.exports = new weibo();
+module.exports = new Weibo();
