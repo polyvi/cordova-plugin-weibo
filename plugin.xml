@@ -2,6 +2,7 @@
 
 <plugin xmlns="http://cordova.apache.org/ns/plugins/1.0"
         id="com.polyvi.plugins.weibo"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         version="1.0.0">
 
     <name>weibo</name>
