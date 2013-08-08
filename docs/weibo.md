@@ -1,6 +1,6 @@
 #Weibo
 
-Plugin for the popular twitter-like service in China. Help user get oauth2/access_token to further access weibo content.
+Plugin for weibo, the popular twitter-like service in China. Help user get oauth2/access_token to further access weibo content.
 
 Please refer to [weibo oauth2](ttp://open.weibo.com/wiki/OAuth2/access_token)
 
@@ -21,8 +21,8 @@ Please refer to [weibo oauth2](ttp://open.weibo.com/wiki/OAuth2/access_token)
 
 ##Quick Example
 
-    var clientId = "3968026932";
-    var redirectUrl = "http://www.igo.cn";
+    var clientId = "12312312313";
+    var redirectUrl = "http://www.server.com";
 
     // ... later on ...
 
@@ -31,24 +31,6 @@ Please refer to [weibo oauth2](ttp://open.weibo.com/wiki/OAuth2/access_token)
 ##Full Example
 
     <!DOCTYPE html>
-    <!--
-        Licensed to the Apache Software Foundation (ASF) under one
-        or more contributor license agreements.  See the NOTICE file
-        distributed with this work for additional information
-        regarding copyright ownership.  The ASF licenses this file
-        to you under the Apache License, Version 2.0 (the
-        "License"); you may not use this file except in compliance
-        with the License.  You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-        Unless required by applicable law or agreed to in writing,
-        software distributed under the License is distributed on an
-        "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-         KIND, either express or implied.  See the License for the
-        specific language governing permissions and limitations
-        under the License.
-    -->
     <html>
         <head>
             <meta charset="utf-8" />
@@ -74,10 +56,12 @@ Please refer to [weibo oauth2](ttp://open.weibo.com/wiki/OAuth2/access_token)
             navigator.weibo.login(clientId, redirectUrl, success, fail);
         };
 
+        // test for null redirect url
         function WeiboLoginWithRedirectUrlNull() {
             navigator.weibo.login(clientId, null, success, fail);
         };
 
+        // test for empty redirect url
         function WeiboLoginWithRedirectUrlEmpty() {
             navigator.weibo.login(clientId, "", success, fail);
         };
@@ -97,7 +81,7 @@ Please refer to [weibo oauth2](ttp://open.weibo.com/wiki/OAuth2/access_token)
     </script>
         </head>
         <body id="stage" class="theme">
-           <h1>Weibo</h1>
+           <h1>Hello Weibo</h1>
             <div id="info">
                 status: <span id="status"></span><br/>
                 result: <span id="result"></span><br/>
