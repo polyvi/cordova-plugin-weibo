@@ -24,45 +24,47 @@
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
         <link rel="stylesheet" href="master.css" type="text/css" media="screen" title="no title" charset="utf-8">
         <title>Hello Weibo</title>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="Weibo.js"></script>
+        <script type="text/javascript" charset="utf-8">
 
-    <script type="text/javascript" charset="utf-8">
+            var Weibo = cordova.require("cordova/plugin/Weibo");
 
-    /**
-     * Function called when page has finished loading.
-     */
-    function init() {
-        document.addEventListener("deviceready", function() {
-            document.getElementById('status').innerText = "ondeviceready!";},
-            false);
-    };
+            /**
+             * Function called when page has finished loading.
+             */
+            function init() {
+                document.addEventListener("deviceready", function() {
+                    document.getElementById('status').innerText = "ondeviceready!";},
+                    false);
+            };
 
-    var clientId = "3968026932";
-    var redirectUrl = "http://www.igo.cn";
-    function WeiboLogin() {
-        navigator.weibo.login(clientId, redirectUrl, success, fail);
-    };
+            var clientId = "3968026932";
+            var redirectUrl = "http://www.igo.cn";
+            function WeiboLogin() {
+                Weibo.login(clientId, redirectUrl, success, fail);
+            };
 
-    function WeiboLoginWithRedirectUrlNull() {
-        navigator.weibo.login(clientId, null, success, fail);
-    };
+            function WeiboLoginWithRedirectUrlNull() {
+                Weibo.login(clientId, null, success, fail);
+            };
 
-    function WeiboLoginWithRedirectUrlEmpty() {
-        navigator.weibo.login(clientId, "", success, fail);
-    };
+            function WeiboLoginWithRedirectUrlEmpty() {
+                Weibo.login(clientId, "", success, fail);
+            };
 
-    function success(result) {
-        var loginResult = "";
-        loginResult = loginResult + "access_token:" + result.access_token + "\n";
-        document.getElementById('status').innerText = "success";
-        document.getElementById('result').innerText = loginResult;
-    };
+            function success(result) {
+                var loginResult = "";
+                loginResult = loginResult + "access_token:" + result.access_token + "\n";
+                document.getElementById('status').innerText = "success";
+                document.getElementById('result').innerText = loginResult;
+            };
 
-    function fail(result) {
-        document.getElementById('status').innerText = "fail";
-        document.getElementById('result').innerText = "fail:" + result;
-    };
-
-</script>
+            function fail(result) {
+                document.getElementById('status').innerText = "fail";
+                document.getElementById('result').innerText = "fail:" + result;
+            };
+        </script>
     </head>
     <body id="stage" class="theme">
        <h1>Weibo</h1>
@@ -73,9 +75,6 @@
         <div class="btn large" onclick="WeiboLogin();">WeiboLogin</div>
         <div class="btn large" onclick="WeiboLoginWithRedirectUrlNull();">RedirectUrlNull</div>
         <div class="btn large" onclick="WeiboLoginWithRedirectUrlEmpty();">RedirectUrlEmpty</div>
-
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             init();
         </script>

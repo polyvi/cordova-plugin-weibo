@@ -15,12 +15,12 @@
  KIND, either express or implied. See the License for the
  specific language governing permissions and limitations
  under the License.
-*/
+ */
 
 package com.polyvi.plugins.weibo;
 
-import org.apache.cordova.CallbackContext;
-import org.apache.cordova.PluginResult;
+import org.apache.cordova.api.CallbackContext;
+import org.apache.cordova.api.PluginResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,7 +39,8 @@ public class WebViewHandler {
     private Activity mActivity;
     private CallbackContext mCallbackContext;
 
-    public  WebViewHandler(Activity activity, CallbackContext callbackContext, WeiboContent weiboContent) {
+    public WebViewHandler(Activity activity, CallbackContext callbackContext,
+            WeiboContent weiboContent) {
         mActivity = activity;
         mCallbackContext = callbackContext;
         mWeiboContent = weiboContent;
@@ -49,17 +50,19 @@ public class WebViewHandler {
     }
 
     private void initData() {
-        mWebView.setWebViewClient(new WeiboWebViewClient(mWeiboContent.getRedirectorUrl()));
+        mWebView.setWebViewClient(new WeiboWebViewClient(mWeiboContent
+                .getRedirectorUrl()));
         CookieSyncManager.createInstance(mActivity);
         mWebView.loadUrl(mWeiboContent.getUrl());
     }
 
-
     private class WeiboWebViewClient extends WebViewClient {
         private String mRedirectorUrl;
+
         public WeiboWebViewClient(String redirectorUrl) {
             mRedirectorUrl = redirectorUrl;
         }
+
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             webViewLayout.showProgress();
@@ -84,11 +87,14 @@ public class WebViewHandler {
             webViewLayout.hideProgress();
             if (mTokenReceived && url.startsWith(mRedirectorUrl)) {
                 try {
-                    String[] array =  url.split("[&,#]");
+                    String[] array = url.split("[&,#]");
                     String redirector_url = array[0];
-                    String access_token = array[1].substring("access_token=".length());
-                    String remind_in = array[2].substring("remind_in=".length());
-                    String expires_in = array[3].substring("expires_in=".length());
+                    String access_token = array[1].substring("access_token="
+                            .length());
+                    String remind_in = array[2]
+                            .substring("remind_in=".length());
+                    String expires_in = array[3].substring("expires_in="
+                            .length());
                     String uid = array[4].substring("uid=".length());
                     JSONObject result = new JSONObject();
                     result.put("redirect_uri", redirector_url);

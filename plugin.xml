@@ -10,21 +10,19 @@
     <keywords>weibo, cordova</keywords>
     <license>Apache 2.0</license>
     <description>Weibo plugin for Apache Cordova</description>
-
-    <js-module src="www/Weibo.js" name="weibo">
-        <clobbers target="navigator.weibo"/>
-    </js-module>
+    
+    <asset src="www/Weibo.js" target="Weibo.js" />
 
     <engines>
-      <engine name="cordova" version=">=2.9.0" />
+      <engine name="cordova" version=">=2.5.0" />
+      <engine name="cordova" version="<=2.9.0" />
     </engines>
 
     <!-- android -->
     <platform name="android">
-        <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="Weibo">
-                <param name="android-package" value="com.polyvi.plugins.weibo.Weibo"/>
-            </feature>
+        <config-file target="res/xml/config.xml" parent="/*">           
+            <plugin name="Weibo"
+                value="com.polyvi.plugins.weibo.Weibo"/>
         </config-file>
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.INTERNET" />
