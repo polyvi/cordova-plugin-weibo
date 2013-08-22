@@ -112,4 +112,3 @@ Please refer to [weibo oauth2](ttp://open.weibo.com/wiki/OAuth2/access_token)
             </script>
         </body>
     </html>
-    

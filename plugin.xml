@@ -10,7 +10,7 @@
     <keywords>weibo, cordova</keywords>
     <license>Apache 2.0</license>
     <description>Weibo plugin for Apache Cordova</description>
-    
+
     <asset src="www/Weibo.js" target="Weibo.js" />
 
     <engines>
@@ -20,7 +20,7 @@
 
     <!-- android -->
     <platform name="android">
-        <config-file target="res/xml/config.xml" parent="/*">           
+        <config-file target="res/xml/config.xml" parent="/*">
             <plugin name="Weibo"
                 value="com.polyvi.plugins.weibo.Weibo"/>
         </config-file>
