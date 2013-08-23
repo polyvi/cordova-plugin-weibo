@@ -3,7 +3,7 @@
 <plugin xmlns="http://cordova.apache.org/ns/plugins/1.0"
         id="com.polyvi.plugins.weibo"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        version="1.0.2">
+        version="1.0.3">
 
     <name>weibo</name>
     <author>PolyVi Inc.</author>
@@ -12,6 +12,10 @@
     <description>Weibo plugin for Apache Cordova</description>
 
     <asset src="www/Weibo.js" target="Weibo.js" />
+
+    <js-module src="www/Weibo.js" name="Weibo">
+        <clobbers target="Weibo" />
+    </js-module>
 
     <engines>
       <engine name="cordova" version=">=2.5.0" />
