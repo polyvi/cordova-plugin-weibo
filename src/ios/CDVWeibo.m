@@ -19,12 +19,17 @@
 
 #import "CDVWeibo.h"
 
-#define HEAD_URL        @"https://api.weibo.com/oauth2/authorize?display=mobile"
+#define HEAD_URL        @"https://open.weibo.cn/oauth2/authorize?display=mobile&forcelogin=true"
 #define CLIENT_ID       @"&client_id="
-#define RESPONSE_TYPE   @"&response_type=code"
+#define RESPONSE_TYPE   @"&response_type=token"
 #define REDIRECT_URI    @"&redirect_uri="
 #define ERROR_MSG       @"clientID or redirectUrl is empty"
-#define CODE            @"/?code="
+
+#define kTokenRegEx     @"access_token=(.*?)&"
+#define kToken          @"access_token"
+
+#define kBackBarTag     1223
+#define kWeiboViewTag   1224
 
 @implementation CDVWeibo
 
@@ -53,15 +58,52 @@
 
 - (void)showWeiboLogin:(NSString*)weiboUrl
 {
+    CGRect barFrame = self.webView.frame;
+    barFrame.size.height = 45;
+    UINavigationBar* bar = [[UINavigationBar alloc] initWithFrame:barFrame];
+    bar.tag = kBackBarTag;
+    UINavigationItem* item = [[UINavigationItem alloc] initWithTitle:@"新浪微博"];
+    UIBarButtonItem* back = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
+    [item setLeftBarButtonItem:back];
+    [bar setItems:@[item]];
+
     CGRect weiboFrame = self.webView.frame;
-    weiboFrame.origin.y = 0;
+    weiboFrame.origin.y = 45;
     UIWebView *weiboView = [[UIWebView alloc] initWithFrame:weiboFrame];
     weiboView.delegate = self;
     weiboView.scalesPageToFit = YES;
+    weiboView.tag = kWeiboViewTag;
+    weiboView.scalesPageToFit = YES;
+
     NSURL *requestUrl = [NSURL URLWithString:weiboUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:requestUrl];
     [weiboView loadRequest:request];
     [self.webView addSubview:weiboView];
+    [self.webView addSubview:bar];
+}
+
+- (void)removeSubview
+{
+    for (UIView *v in [self.webView subviews]) {
+        if (v.tag == kBackBarTag || v.tag == kWeiboViewTag) {
+            [v removeFromSuperview];
+        }
+    }
+}
+
+-(void)cancel:(id)sender
+{
+    [self removeSubview];
+}
+
+- (NSString *)token:(NSString *)stringUrl
+{
+    NSRange range = [stringUrl rangeOfString:kTokenRegEx options:NSCaseInsensitiveSearch | NSRegularExpressionSearch];
+    range.location += [kToken length] + 1;
+    range.length -= [kToken length] + 2;
+
+    NSString* tokenCode = range.length <= 0 ? nil : [stringUrl substringWithRange:range];
+    return tokenCode;
 }
 
 #pragma mark UIWebViewDelegate
@@ -73,20 +115,22 @@
     if ([stringUrl hasPrefix:self.redirectUrl])
     {
         CDVPluginResult* pluginResult = nil;
-        if (NSNotFound == [stringUrl rangeOfString:CODE].location)
+
+        NSString* token = [self token:stringUrl];
+        if (token.length == 0)
         {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"can't get tokenCode"];
         }
         else
         {
-            NSString* tokenCode = [stringUrl substringFromIndex:([stringUrl rangeOfString:@"="].location + 1)];
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:tokenCode];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:@{kToken:token}];
         }
 
         [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
 
-        [webView removeFromSuperview];
         return NO;
+
+        [self removeSubview];
     }
     return YES;
 }
@@ -99,12 +143,9 @@
         return;
     }
 
-    NSLog(@"get sina weibo token request failed %d", error.code);
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"get sina weibo token request failed"];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
+    NSLog(@"get sina weibo token request failed: %@", error);
 
-    [webView removeFromSuperview];
+    [self removeSubview];
 }
-
 
 @end
