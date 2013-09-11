@@ -28,7 +28,7 @@ import android.app.Activity;
 
 public class Weibo extends CordovaPlugin {
 
-    private static String HEAD_URL = "https://api.weibo.com/oauth2/authorize?display=mobile";
+    private static String HEAD_URL = "https://open.weibo.cn/oauth2/authorize?display=mobile&forcelogin=true";
     private static String CLIENT_ID = "&client_id=";
     private static String RESPONSE_TYPE = "&response_type=token";
     private static String REDIRECT_URI = "&redirect_uri=";
