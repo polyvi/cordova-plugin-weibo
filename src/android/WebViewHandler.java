@@ -66,7 +66,7 @@ public class WebViewHandler {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             webViewLayout.showProgress();
-            return true;
+            return false;
         }
 
         @Override
