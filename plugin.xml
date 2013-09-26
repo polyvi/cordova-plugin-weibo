@@ -3,7 +3,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         id="com.polyvi.plugins.weibo"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        version="1.0.3">
+        version="1.0.4">
 
     <name>weibo</name>
     <author>PolyVi Inc.</author>
