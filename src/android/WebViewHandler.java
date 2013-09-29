@@ -79,14 +79,9 @@ public class WebViewHandler {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             webViewLayout.showProgress();
-            super.onPageStarted(view, url, favicon);
-        }
-
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            webViewLayout.hideProgress();
             if (mTokenReceived && url.startsWith(mRedirectorUrl)) {
                 try {
+                    webViewLayout.hideProgress();
                     String[] array = url.split("[&,#]");
                     String redirector_url = array[0];
                     String access_token = array[1].substring("access_token="
@@ -117,6 +112,12 @@ public class WebViewHandler {
                 webViewLayout.destroy();
                 return;
             }
+            super.onPageStarted(view, url, favicon);
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            webViewLayout.hideProgress();
             super.onPageFinished(view, url);
         }
     }
